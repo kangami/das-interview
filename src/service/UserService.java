@@ -2,6 +2,7 @@ package service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import enums.SortDirection;
@@ -72,6 +73,23 @@ public class UserService {
         return sortUsersByLastName(users, SortDirection.ASC);
     }
 
+    /**
+     * Determines how many days have passed since the user was created.
+     *
+     * @param user: the user whose creation date is checked
+     * @return number: of days since creation
+     */
+    public static long daysSinceCreation(User user) {
+        
+    	if (user == null || user.getCreationDate() == null)
+            throw new IllegalArgumentException("User or creation date cannot be null");
+
+        // Use getTime() to calculate difference in milliseconds
+        long diffMillis = new Date().getTime() - user.getCreationDate().getTime();
+
+        // Convert milliseconds to days
+        return diffMillis / (1000L * 60 * 60 * 24);
+    }
 
 
 }
